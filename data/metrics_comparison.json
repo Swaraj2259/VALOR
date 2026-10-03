@@ -1,0 +1,37 @@
+[
+  {
+    "Model": "Linear Regression",
+    "MAE": 3984.72,
+    "MSE": 43528551.91,
+    "RMSE": 6597.62,
+    "R2 Score": 0.1554
+  },
+  {
+    "Model": "Decision Tree",
+    "MAE": 1702.14,
+    "MSE": 17951494.79,
+    "RMSE": 4236.92,
+    "R2 Score": 0.6517
+  },
+  {
+    "Model": "Random Forest",
+    "MAE": 1500.27,
+    "MSE": 16013133.05,
+    "RMSE": 4001.64,
+    "R2 Score": 0.6893
+  },
+  {
+    "Model": "Gradient Boosting",
+    "MAE": 1688.47,
+    "MSE": 16943894.25,
+    "RMSE": 4116.3,
+    "R2 Score": 0.6712
+  },
+  {
+    "Model": "XGBoost",
+    "MAE": 1686.5,
+    "MSE": 16877130.61,
+    "RMSE": 4108.18,
+    "R2 Score": 0.6725
+  }
+]

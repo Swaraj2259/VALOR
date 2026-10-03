@@ -1,0 +1,23 @@
+[
+  "State",
+  "Response",
+  "Coverage",
+  "Education",
+  "EmploymentStatus",
+  "Gender",
+  "Income",
+  "Location Code",
+  "Marital Status",
+  "Monthly Premium Auto",
+  "Months Since Last Claim",
+  "Months Since Policy Inception",
+  "Number of Open Complaints",
+  "Number of Policies",
+  "Policy Type",
+  "Policy",
+  "Renew Offer Type",
+  "Sales Channel",
+  "Total Claim Amount",
+  "Vehicle Class",
+  "Vehicle Size"
+]
