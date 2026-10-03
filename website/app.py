@@ -643,7 +643,7 @@ with tab_comparison:
 
     if comparison_df is not None:
         st.dataframe(comparison_df.style.highlight_min(subset=['MAE', 'RMSE'], color='#ede9de')
-                                        .highlight_max(subset=['R2 Score'], color='#e9e6dc'), use_container_width=True)
+                                        .highlight_max(subset=['R2 Score'], color='#e9e6dc'))
 
         col_b1, col_b2 = st.columns(2)
         with col_b1:
@@ -664,10 +664,9 @@ with tab_comparison:
             ax1.bar(x - bar_width/2, comparison_df["MAE"], width=bar_width, label='MAE ($)', color='#b05730', edgecolor='none')
             ax1.bar(x + bar_width/2, comparison_df["RMSE"], width=bar_width, label='RMSE ($)', color='#9c87f5', edgecolor='none')
 
-            ax1.set_title("Error Metrics (MAE & RMSE in USD) - Lower is Better", fontsize=10, fontweight='600', color='#3d3929', pad=12)
+            ax1.set_title("Error Metrics (MAE & RMSE in USD) - Lower is Better", fontsize=10, fontweight=600, color='#3d3929', pad=12)
             ax1.set_ylabel("USD ($)", fontsize=9, color='#3d3929')
-            ax1.set_xticks(x)
-            ax1.set_xticklabels(models, rotation=20, ha='right')
+            ax1.set_xticks(x, labels=list(models), rotation=20, ha='right')
             ax1.legend(frameon=False, fontsize=8)
             plt.tight_layout()
             st.pyplot(fig1)
@@ -685,11 +684,10 @@ with tab_comparison:
             ax2.grid(axis='y', linestyle='--', alpha=0.5, color='#dad9d4')
 
             ax2.bar(x, comparison_df["R2 Score"], width=0.45, color='#c96442', edgecolor='none')
-            ax2.set_title("Variance Explained (R2 Score) - Higher is Better", fontsize=10, fontweight='600', color='#3d3929', pad=12)
+            ax2.set_title("Variance Explained (R2 Score) - Higher is Better", fontsize=10, fontweight=600, color='#3d3929', pad=12)
             ax2.set_ylabel("R2 Score", fontsize=9, color='#3d3929')
             ax2.set_ylim(0, 1.0)
-            ax2.set_xticks(x)
-            ax2.set_xticklabels(models, rotation=20, ha='right')
+            ax2.set_xticks(x, labels=list(models), rotation=20, ha='right')
             plt.tight_layout()
             st.pyplot(fig2)
             plt.close(fig2)
@@ -714,7 +712,7 @@ with tab_clusters:
     with c_img1:
         cluster_plot_path = resolve_path("kmeans_customer_clusters.png", "plots")
         if os.path.exists(cluster_plot_path):
-            st.image(cluster_plot_path, caption="Customer Segmentation: Income vs Monthly Premium", use_container_width=True)
+            st.image(cluster_plot_path, caption="Customer Segmentation: Income vs Monthly Premium")
     with c_img2:
         st.markdown("""
         <div class="cluster-card">
@@ -766,7 +764,7 @@ with tab_dataset:
 
     if df_raw is not None:
         st.write(f"Sample records ({df_raw.shape[0]:,} rows, {df_raw.shape[1]} columns):")
-        st.dataframe(df_raw.head(50), use_container_width=True)
+        st.dataframe(df_raw.head(50))
 
         st.subheader("Statistical Summary")
-        st.dataframe(df_raw.describe(), use_container_width=True)
+        st.dataframe(df_raw.describe())
