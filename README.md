@@ -1,7 +1,5 @@
 # Valor: Customer Lifetime Value (CLV) Prediction Using Machine Learning
-
-> **Case Study 158:** Customer Lifetime Value Prediction  
-> **Course:** B.Tech CSE (Semester V) — Machine Learning Mini Project  
+ 
 > **Project Acronym:** **VALOR** (*Value Assessment & Lifetime Outlook via Regression*)  
 > **Dataset:** [Kaggle IBM Watson Marketing Customer Value Analysis](https://www.kaggle.com/datasets/pankajchoudhary/ibm-watson-marketing-customer-value-data) (9,134 records, 24 features)  
 > **Interactive App:** Streamlit Prototype (`app.py`)  
