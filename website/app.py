@@ -8,12 +8,20 @@ Description: Interactive Streamlit Web Application for Customer Lifetime Value (
 """
 
 import os
+import sys
 import json
+import warnings
+import traceback
 import joblib
 import numpy as np
 import pandas as pd
 import streamlit as st
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
+# Suppress sklearn version mismatch warnings during model unpickling
+warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
 
 # ==========================================
 # Page Configuration (Clean, No Emojis)
@@ -430,7 +438,14 @@ try:
     df_raw = load_dataset()
     comparison_df = load_comparison_data()
 except Exception as e:
-    st.error(f"Error loading models or artifacts: {e}. Please ensure model files are present.")
+    st.error(f"Error loading models or artifacts: {e}")
+    st.code(traceback.format_exc())
+    st.write(f"APP_DIR: {APP_DIR}")
+    st.write(f"PROJECT_ROOT: {PROJECT_ROOT}")
+    st.write(f"Python: {sys.version}")
+    st.write(f"Models dir exists: {os.path.exists(os.path.join(PROJECT_ROOT, 'models'))}")
+    if os.path.exists(os.path.join(PROJECT_ROOT, 'models')):
+        st.write(f"Models contents: {os.listdir(os.path.join(PROJECT_ROOT, 'models'))}")
     st.stop()
 
 

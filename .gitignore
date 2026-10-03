@@ -20,3 +20,6 @@ env/
 
 # VS Code / IDE settings
 .vscode/
+
+# Unused large model files
+models/all_models.pkl
