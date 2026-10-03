@@ -409,16 +409,7 @@ def load_artifacts():
     with open(resolve_path("feature_cols.json", "data")) as f:
         feature_cols = json.load(f)
 
-    # Optional / non-blocking load for all_models (prevents cross-version Cython _loss unpickling crashes)
-    all_models = {}
-    try:
-        all_models_path = resolve_path("all_models.pkl", "models")
-        if os.path.exists(all_models_path):
-            all_models = joblib.load(all_models_path)
-    except Exception:
-        all_models = {}
-
-    return best_model, all_models, scaler, label_encoders, kmeans, cluster_scaler, feature_cols
+    return best_model, scaler, label_encoders, kmeans, cluster_scaler, feature_cols
 
 @st.cache_data
 def load_dataset():
@@ -435,7 +426,7 @@ def load_comparison_data():
     return None
 
 try:
-    best_model, all_models, scaler, label_encoders, kmeans, cluster_scaler, feature_cols = load_artifacts()
+    best_model, scaler, label_encoders, kmeans, cluster_scaler, feature_cols = load_artifacts()
     df_raw = load_dataset()
     comparison_df = load_comparison_data()
 except Exception as e:
@@ -680,6 +671,7 @@ with tab_comparison:
             ax1.legend(frameon=False, fontsize=8)
             plt.tight_layout()
             st.pyplot(fig1)
+            plt.close(fig1)
 
         with col_b2:
             fig2, ax2 = plt.subplots(figsize=(6, 3.8))
@@ -692,13 +684,15 @@ with tab_comparison:
             ax2.tick_params(colors='#3d3929', which='both', labelsize=9)
             ax2.grid(axis='y', linestyle='--', alpha=0.5, color='#dad9d4')
 
-            ax2.bar(models, comparison_df["R2 Score"], width=0.45, color='#c96442', edgecolor='none')
+            ax2.bar(x, comparison_df["R2 Score"], width=0.45, color='#c96442', edgecolor='none')
             ax2.set_title("Variance Explained (R2 Score) - Higher is Better", fontsize=10, fontweight='600', color='#3d3929', pad=12)
             ax2.set_ylabel("R2 Score", fontsize=9, color='#3d3929')
             ax2.set_ylim(0, 1.0)
+            ax2.set_xticks(x)
             ax2.set_xticklabels(models, rotation=20, ha='right')
             plt.tight_layout()
             st.pyplot(fig2)
+            plt.close(fig2)
 
     st.markdown("""
     <div class="strategy-box">
