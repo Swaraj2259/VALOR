@@ -402,13 +402,22 @@ def resolve_path(filename, subfolder=""):
 @st.cache_resource
 def load_artifacts():
     best_model = joblib.load(resolve_path("best_model.pkl", "models"))
-    all_models = joblib.load(resolve_path("all_models.pkl", "models"))
     scaler = joblib.load(resolve_path("scaler.pkl", "models"))
     label_encoders = joblib.load(resolve_path("label_encoders.pkl", "models"))
     kmeans = joblib.load(resolve_path("kmeans_model.pkl", "models"))
     cluster_scaler = joblib.load(resolve_path("cluster_scaler.pkl", "models"))
     with open(resolve_path("feature_cols.json", "data")) as f:
         feature_cols = json.load(f)
+
+    # Optional / non-blocking load for all_models (prevents cross-version Cython _loss unpickling crashes)
+    all_models = {}
+    try:
+        all_models_path = resolve_path("all_models.pkl", "models")
+        if os.path.exists(all_models_path):
+            all_models = joblib.load(all_models_path)
+    except Exception:
+        all_models = {}
+
     return best_model, all_models, scaler, label_encoders, kmeans, cluster_scaler, feature_cols
 
 @st.cache_data
@@ -432,6 +441,7 @@ try:
 except Exception as e:
     st.error(f"Error loading models or artifacts: {e}. Please ensure model files are present.")
     st.stop()
+
 
 # ==========================================
 # App Header (Editorial, No Emojis)
